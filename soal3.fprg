@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value="Listrik Kost (Function &amp; Array)"/>
+        <attribute name="authors" value="Gemini"/>
+        <attribute name="about" value="Solusi Soal 3 dengan Modular Function dan Output Rapih"/>
+        <attribute name="saved" value="2024-12-16"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, i, m, grandTotal" type="Integer" array="False" size=""/>
+            <declare name="statusAkhir" type="String" array="False" size=""/>
+            
+            <assign variable="grandTotal" expression="0"/>
+            
+            <input variable="n"/>
+            
+            <declare name="namaArr" type="String" array="True" size="n"/>
+            <declare name="subTotalArr" type="Integer" array="True" size="n"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <input variable="namaArr[i]"/>
+                
+                <input variable="m"/>
+                
+                <assign variable="subTotalArr[i]" expression="HitungSubTotal(m)"/>
+                
+                <assign variable="grandTotal" expression="grandTotal + subTotalArr[i]"/>
+            </for>
+            
+            <output expression="&quot;Total konsumsi:&quot;" newline="True"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <output expression="namaArr[i] &amp; &quot; = &quot; &amp; subTotalArr[i] &amp; &quot; wh&quot;" newline="True"/>
+            </for>
+            
+            <output expression="&quot;&quot;" newline="True"/> <output expression="&quot;Total konsumsi kamar = &quot; &amp; grandTotal &amp; &quot; wh&quot;" newline="True"/>
+            
+            <assign variable="statusAkhir" expression="CekStatus(grandTotal)"/>
+            <output expression="statusAkhir" newline="True"/>
+            
+        </body>
+    </function>
+    
+    <function name="HitungSubTotal" type="Integer" variable="total">
+        <parameters>
+            <parameter name="jumlahBarang" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="j, watt, total" type="Integer" array="False" size=""/>
+            <assign variable="total" expression="0"/>
+            
+            <for variable="j" start="1" end="jumlahBarang" direction="inc" step="1">
+                <input variable="watt"/>
+                <assign variable="total" expression="total + watt"/>
+            </for>
+        </body>
+    </function>
+    
+    <function name="CekStatus" type="String" variable="pesan">
+        <parameters>
+            <parameter name="totalWh" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="pesan" type="String" array="False" size=""/>
+            
+            <if expression="totalWh &lt;= 1000">
+                <then>
+                    <assign variable="pesan" expression="&quot;Konsumsi masih dalam batas wajar.&quot;"/>
+                </then>
+                <else>
+                    <assign variable="pesan" expression="&quot;Konsumsi berlebihan, harap hemat energi.&quot;"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

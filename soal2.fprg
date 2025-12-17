@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value="Stok Barang - Output Serentak"/>
+        <attribute name="authors" value="Gemini"/>
+        <attribute name="about" value="Menggunakan Array untuk menampung data sebelum ditampilkan"/>
+        <attribute name="saved" value="2024-12-16"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, i, sisa" type="Integer" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            
+            <input variable="n"/>
+            
+            <declare name="namaArray" type="String" array="True" size="n"/>
+            <declare name="stokArray" type="Integer" array="True" size="n"/>
+            <declare name="terjualArray" type="Integer" array="True" size="n"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <input variable="namaArray[i]"/>
+                <input variable="stokArray[i]"/>
+                <input variable="terjualArray[i]"/>
+            </for>
+            
+            <output expression="&quot;&quot;" newline="True"/>
+            <output expression="&quot;--- HASIL LAPORAN ---&quot;" newline="True"/>
+            
+            <output expression="&quot;Nama&quot; &amp; &quot;   &quot; &amp; &quot;StokAwal&quot; &amp; &quot;   &quot; &amp; &quot;Terjual&quot; &amp; &quot;   &quot; &amp; &quot;Sisa&quot; &amp; &quot;   &quot; &amp; &quot;Status&quot;" newline="True"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <assign variable="sisa" expression="stokArray[i] - terjualArray[i]"/>
+                
+                <assign variable="status" expression="CekStatus(sisa)"/>
+                
+                <output expression="namaArray[i] &amp; &quot;       &quot; &amp; stokArray[i] &amp; &quot;       &quot; &amp; terjualArray[i] &amp; &quot;       &quot; &amp; sisa &amp; &quot;       &quot; &amp; status" newline="True"/>
+            </for>
+        </body>
+    </function>
+    
+    <function name="CekStatus" type="String" variable="pesan">
+        <parameters>
+            <parameter name="sisaBarang" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="pesan" type="String" array="False" size=""/>
+            <if expression="sisaBarang == 0">
+                <then>
+                    <assign variable="pesan" expression="&quot;Habis, segera restock!&quot;"/>
+                </then>
+                <else>
+                    <if expression="sisaBarang &lt;= 5">
+                        <then>
+                            <assign variable="pesan" expression="&quot;Stok menipis&quot;"/>
+                        </then>
+                        <else>
+                            <assign variable="pesan" expression="&quot;Stok aman&quot;"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

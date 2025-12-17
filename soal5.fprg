@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value="Seleksi Beasiswa Lengkap"/>
+        <attribute name="authors" value="Gemini"/>
+        <attribute name="about" value="Solusi Soal 5 dengan Function, Array, dan Counter"/>
+        <attribute name="saved" value="2024-12-16"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n, i, totalLolos, junk" type="Integer" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            
+            <assign variable="totalLolos" expression="0"/>
+            
+            <input variable="n"/>
+            
+            <declare name="namaArr" type="String" array="True" size="n"/>
+            <declare name="ipkArr" type="Real" array="True" size="n"/>
+            <declare name="gajiArr" type="Integer" array="True" size="n"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                <input variable="namaArr[i]"/>
+                <input variable="ipkArr[i]"/>
+                <input variable="gajiArr[i]"/>
+                
+                <input variable="junk"/>
+            </for>
+            
+            <output expression="&quot;&quot;" newline="True"/>
+            
+            <for variable="i" start="0" end="n - 1" direction="inc" step="1">
+                
+                <assign variable="status" expression="CekKelulusan(ipkArr[i], gajiArr[i])"/>
+                
+                <output expression="namaArr[i] &amp; &quot; -&gt; &quot; &amp; status" newline="True"/>
+                
+                <if expression="status == &quot;Lolos Syarat Awal&quot;">
+                    <then>
+                        <assign variable="totalLolos" expression="totalLolos + 1"/>
+                    </then>
+                    <else/>
+                </if>
+            </for>
+            
+            <output expression="&quot;&quot;" newline="True"/> <output expression="&quot;Total pendaftar lolos: &quot; &amp; totalLolos" newline="True"/>
+            
+        </body>
+    </function>
+    
+    <function name="CekKelulusan" type="String" variable="hasil">
+        <parameters>
+            <parameter name="nilaiIPK" type="Real" array="False"/>
+            <parameter name="nilaiGaji" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="hasil" type="String" array="False" size=""/>
+            
+            <if expression="nilaiIPK &gt;= 3.0 and nilaiGaji &lt;= 3000000">
+                <then>
+                    <assign variable="hasil" expression="&quot;Lolos Syarat Awal&quot;"/>
+                </then>
+                <else>
+                    <assign variable="hasil" expression="&quot;Tidak Lolos&quot;"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
